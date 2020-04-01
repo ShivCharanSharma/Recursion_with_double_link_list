@@ -43,15 +43,19 @@ int count_up(int n)
  * @param value_t (*f)(value_t) function pointer
  * @return Sorted_list pointer of new link list.
  */
-int  nth( struct Node * node,int n){
+int  nth( Sorted_list * list,struct Node * node,int n){
 	
+	if(list->size -1 <n || n<0)
+	{
+		return 0;
+	}
 
 	if(n==0){
 		printf("     %d  %d",node->key,node->value);
 		return 0;
 	}
 	
-	return nth(node->next,n-1);
+	return nth(list,node->next,n-1);
 }
 
 /* function description
@@ -60,15 +64,21 @@ int  nth( struct Node * node,int n){
  * @param value_t (*f)(value_t) function pointer
  * @return Sorted_list pointer of new link list.
  */
-int  nth_sorted( struct Node * node,int n){
+int  nth_sorted( Sorted_list * list, struct Node * node,int n){
 	
+	if(list->size -1 <n || n<0)
+        {
+                return 0;
+        }
+
+
 
 	if(n==0){
 		printf("     %d  %d",node->key,node->value);
 		return 0;
 	}
 	
-	return nth_sorted(node->sort,n-1);
+	return nth_sorted(list, node->sort,n-1);
 }
 
 
@@ -344,8 +354,8 @@ int main( int argc, char *argv[] )
     }
 	count_up(12);
 	count_down(21);
-	nth(list_detail->head,2);
-	nth_sorted(list_detail->head_sort,2);
+	nth(list_detail, list_detail->head,2);
+	nth_sorted(list_detail, list_detail->head_sort,2);
 	printf("\n");
 	remove_nth(list_detail,list_detail->head,2);
 	
