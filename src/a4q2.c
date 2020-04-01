@@ -290,6 +290,8 @@ int main( int argc, char *argv[] )
 
     while(j<i){
 	a = commands[j];
+	int n;
+	char *cmd = strtok(a, " ");
 		if(strcmp(a,"rem_first")==0){
 			remove_first(list_detail, &value, &key);
 			printf("rem_first:  %d %d \n", key, value);
@@ -318,11 +320,10 @@ int main( int argc, char *argv[] )
 			int tempk, tempv;
 			char *s;
 			s = a;
-			char *p = strtok(a," ");
-			p = strtok(NULL, " ");
-			sscanf(p, "%d", &tempk);
-			p = strtok(NULL, " ");
-			sscanf(p, "%d", &tempv);
+			cmd = strtok(NULL, " ");
+			sscanf(cmd, "%d", &tempk);
+			cmd = strtok(NULL, " ");
+			sscanf(cmd, "%d", &tempv);
 			printf("p:          %d  %d\n",tempk, tempv);
 			push(list_detail, tempv, tempk);
 		}
@@ -331,11 +332,10 @@ int main( int argc, char *argv[] )
 			int tempk, tempv;
 			char *s;
 			s = a;
-			char *p = strtok(s," ");
-			p = strtok(NULL, " ");
-			sscanf(p, "%d", &tempk);
-			p = strtok(NULL, " ");
-			sscanf(p, "%d", &tempv);
+			cmd = strtok(NULL, " ");
+			sscanf(cmd, "%d", &tempk);
+			cmd = strtok(NULL, " ");
+			sscanf(cmd, "%d", &tempv);
 			printf("a:          %d  %d\n",tempk, tempv);
 			append(list_detail, tempv, tempk);
 		}
@@ -350,9 +350,65 @@ int main( int argc, char *argv[] )
 			printf("empty:      size = %d\n", list_detail->size);
 
 		}
+
+		else if(strcmp(cmd, "count_up") == 0){
+			cmd = strtok(NULL, "\0");
+			sscanf(cmd, "%d", &n);
+			//printf("count_up %d\n", n);
+			printf("count_up from 0 to %d\n     ", 2*n);
+			count_up(n);
+			printf("\n");
+
+		}
+
+		else if(strcmp(cmd, "count_down") == 0){
+			cmd = strtok(NULL, "\0");
+			sscanf(cmd, "%d", &n);
+//			printf("count_up %d\n", n);
+			printf("count_down from 0 to %d\n     ", n);
+			count_down(n);
+			printf("\n");
+		}
+
+		else if(strcmp(cmd, "nth") == 0){
+			cmd = strtok(NULL, " ");
+			sscanf(cmd, "%d", &n);
+			cmd = strtok(NULL, "\0");
+//			printf("nth %d, %s\n", n, cmd);
+			if(strcmp(cmd, "INSERTED_ORDER")==0){
+				printf("nth:        n = %d, %s\n", n, cmd);
+				nth(list_detail, list_detail->head,n);
+				printf("\n");
+			}
+			else if(strcmp(cmd, "SORTED_ORDER")==0){
+				printf("nth:        n = %d, %s\n", n, cmd);
+				nth_sorted(list_detail, list_detail->head_sort,n);
+				printf("\n");
+
+			}
+		}
+
+		else if(strcmp(cmd, "remove_nth") == 0){
+			cmd = strtok(NULL, " ");
+			sscanf(cmd, "%d", &n);
+			cmd = strtok(NULL, "\0");
+			if(strcmp(cmd, "INSERTED_ORDER")==0){
+				printf("remove_nth: n = %d, %s\n", n, cmd);
+				remove_nth(list_detail, list_detail->head,n);
+				printf("\n");
+			}
+			else if(strcmp(cmd, "SORTED_ORDER")==0){
+				printf("remove_nth: n = %d, %s\n", n, cmd);
+				remove_nth_sorted(list_detail, list_detail->head_sort,n);
+				printf("\n");
+
+			}
+
+		
+		}
 	j++;
     }
-	count_up(12);
+/*	count_up(12);
 	count_down(21);
 	nth(list_detail, list_detail->head,2);
 	nth_sorted(list_detail, list_detail->head_sort,2);
@@ -369,7 +425,7 @@ int main( int argc, char *argv[] )
 	  printList_sort(list_detail);
 
     destroy_list(list_detail);
-
+*/
     destroy_list(list_detail);
 
 //    getchar();  
