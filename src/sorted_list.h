@@ -79,5 +79,5 @@ int remove_smallest_key(Sorted_list * list_detail,value_t * value, key_t * key);
  */
 int remove_largest_key(Sorted_list * list_detail,value_t * value, key_t * key);
 void empty_list(Sorted_list * list_detail);
-
+void destroy_list(Sorted_list * list_detail);
 #endif
