@@ -4,6 +4,232 @@
 typedef int value_t;
 #include "sorted_list.h"
 
+int count_down(int n)
+{
+	
+	if(n ==0){
+
+	printf("%d",n);
+		return 0;
+	}
+
+	printf("%d, ",n);
+
+	return count_down(n-1);
+}
+
+
+
+int count_up(int n)
+{
+	static int count=0;
+	if(n ==count){
+		
+		printf("%d",2*count);
+		count=0;
+		return 0;
+		
+	}
+	printf("%d, ",2*count);
+	count++;
+	
+	return count_up(n);
+}
+
+
+/* function description
+ * map the values using function pointer.
+ * @param Sorted_list * Sorted_list pointer
+ * @param value_t (*f)(value_t) function pointer
+ * @return Sorted_list pointer of new link list.
+ */
+int  nth( struct Node * node,int n){
+	
+
+	if(n==0){
+		printf("     %d  %d",node->key,node->value);
+		return 0;
+	}
+	
+	return nth(node->next,n-1);
+}
+
+/* function description
+ * map the values using function pointer.
+ * @param Sorted_list * Sorted_list pointer
+ * @param value_t (*f)(value_t) function pointer
+ * @return Sorted_list pointer of new link list.
+ */
+int  nth_sorted( struct Node * node,int n){
+	
+
+	if(n==0){
+		printf("     %d  %d",node->key,node->value);
+		return 0;
+	}
+	
+	return nth_sorted(node->sort,n-1);
+}
+
+
+/* function description
+ * map the values using function pointer.
+ * @param Sorted_list * Sorted_list pointer
+ * @param value_t (*f)(value_t) function pointer
+ * @return Sorted_list pointer of new link list.
+ */
+int  remove_nth( Sorted_list * list, struct Node * node,int n){
+   if(list->size-1 < n || n < 0){
+                return 0;
+        }
+	
+
+	if(n==0){
+		struct Node * ptr;
+		 ptr =node;
+             value_t   deleted_Node_Value=node->value;
+             value_t   deleted_Node_Key=node->key;
+                //update head_sort
+                if(node->prev_sorted != NULL && node->sort != NULL){
+                        node->prev_sorted->sort=node->sort;
+                        node->sort->prev_sorted= node->prev_sorted;
+                }
+                else  if( node->prev_sorted == NULL && node->sort != NULL)
+                {
+                        node->sort->prev_sorted= NULL;
+                        list->head_sort=list->head_sort->sort;
+                }
+                else  if(node->prev_sorted != NULL && node->sort == NULL)
+                {
+                        node->prev_sorted->sort=NULL;
+                        list->tails_sort=node->prev_sorted;
+                }
+		else if(node->next==NULL && node->prev== NULL)
+		{
+			list->head= NULL;
+	                list->head_sort=NULL;
+        	        list->tails=NULL;
+                	list->tails_sort=NULL;
+
+		}
+                //update head
+
+
+
+                if(node->prev != NULL && node->next != NULL){
+                        node->prev->next=node->next;
+                        node->next->prev=node->prev;
+                }
+                else if(node->prev == NULL && node->next != NULL)
+                {
+                        node->next->prev=NULL;
+                        list->head=list->head->next;
+                }
+                else if(node->next ==NULL && node->prev != NULL)
+                {
+                        node->prev->next = NULL;
+                        list->tails=list->tails->prev;
+                }
+		else if(node->next ==NULL && node->prev==NULL)
+		{
+			list->head_sort= NULL;
+	                list->head=NULL;
+        	        list->tails=NULL;
+                	list->tails_sort=NULL;
+
+		}
+		list->size=list->size-1;			
+
+                free(ptr);
+
+		printf("     %d  %d",deleted_Node_Key,deleted_Node_Value);
+		return 0;
+	}
+	
+	return remove_nth(list,node->next,n-1);
+}
+
+
+/* function description
+ * map the values using function pointer.
+ * @param Sorted_list * Sorted_list pointer
+ * @param value_t (*f)(value_t) function pointer
+ * @return Sorted_list pointer of new link list.
+ */
+int  remove_nth_sorted( Sorted_list * list, struct Node * node,int n){
+	 if(list->size-1 < n || n < 0){
+                return 0;
+        }
+	
+
+	if(n==0){
+		struct Node * ptr;
+		 ptr =node;
+             value_t   deleted_Node_Value=node->value;
+             value_t   deleted_Node_Key=node->key;
+                //update head_sort
+                if(node->prev_sorted != NULL && node->sort != NULL){
+                        node->prev_sorted->sort=node->sort;
+                        node->sort->prev_sorted= node->prev_sorted;
+                }
+                else  if( node->prev_sorted == NULL && node->sort != NULL)
+                {
+                        node->sort->prev_sorted= NULL;
+                        list->head_sort=list->head_sort->sort;
+                }
+                else  if(node->prev_sorted != NULL && node->sort == NULL)
+                {
+                        node->prev_sorted->sort=NULL;
+                        list->tails_sort=node->prev_sorted;
+                }
+		else if(node->next==NULL && node->prev== NULL)
+		{
+			list->head= NULL;
+	                list->head_sort=NULL;
+        	        list->tails=NULL;
+                	list->tails_sort=NULL;
+
+		}
+                //update head
+
+
+
+                if(node->prev != NULL && node->next != NULL){
+                        node->prev->next=node->next;
+                        node->next->prev=node->prev;
+                }
+                else if(node->prev == NULL && node->next != NULL)
+                {
+                        node->next->prev=NULL;
+                        list->head=list->head->next;
+                }
+                else if(node->next ==NULL && node->prev != NULL)
+                {
+                        node->prev->next = NULL;
+                        list->tails=list->tails->prev;
+                }
+		else if(node->next ==NULL && node->prev==NULL)
+		{
+			list->head_sort= NULL;
+	                list->head=NULL;
+        	        list->tails=NULL;
+                	list->tails_sort=NULL;
+
+		}
+		list->size=list->size-1;			
+
+                free(ptr);
+
+		printf("     %d  %d",deleted_Node_Key,deleted_Node_Value);
+		return 0;
+	}
+	
+	return remove_nth_sorted(list,node->sort,n-1);
+}
+
+
+
+
 
 
 /* Main function of the program*/
@@ -116,11 +342,26 @@ int main( int argc, char *argv[] )
 		}
 	j++;
     }
+	count_up(12);
+	count_down(21);
+	nth(list_detail->head,2);
+	nth_sorted(list_detail->head_sort,2);
+	printf("\n");
+	remove_nth(list_detail,list_detail->head,2);
 	
-    destroy_list(list_detail);
+	printf("\n");
+	printf("\n");
+	  printList(list_detail);
+
+	printf("\n");
+	remove_nth_sorted(list_detail,list_detail->head_sort,1);
+	printf("\n");
+	  printList_sort(list_detail);
 
     destroy_list(list_detail);
 
-    getchar();  
+    destroy_list(list_detail);
+
+//    getchar();  
     return 0;  
 }  
