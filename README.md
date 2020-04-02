@@ -28,7 +28,7 @@ Folder **2b** contain sorce code for question 2 Greatest Common Divisor (GCD).
 	The tail recursive implementation means that the recursive call statement must be the last
 	statement of the function. The gcd function made in 2b program is also tail recursive. The 
 	reason is that the recursive statement **return gcd(b, a%b);** is the last statement executed 
-	by the function and after that the function is executed again for the different values of a and
+	by the function and after that the function is called again for the different values of a and
 	b as calculated in the function. Thus, the implementation of gcd is tail recursive.
 
 For solution of 3rd question directory is :
