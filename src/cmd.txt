@@ -5,3 +5,15 @@ p 36 25
 size
 print_sort
 print_all
+count_up 5
+count_down 6
+print_all
+nth 0 INSERTED_ORDER
+print_sort
+nth 2 SORTED_ORDER
+remove_nth 2 INSERTED_ORDER
+print_all
+print_sort
+remove_nth 1 SORTED_ORDER
+print_all
+print_sort
