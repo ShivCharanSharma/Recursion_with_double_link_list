@@ -252,13 +252,10 @@ int main( int argc, char *argv[] )
     list_detail->tails=NULL;
     list_detail->tails_sort=NULL;
     int i = 0;    
-    char chunk[50];
     char commands[50][50];
-    size_t malloc_size = 100;
     value_t value;
     key_t key;
     int j = 0;
-    int k = 0;
     char *a;
 
     if(argc == 1){
@@ -318,8 +315,6 @@ int main( int argc, char *argv[] )
 	
 		else if((a[0] == 'p')){
 			int tempk, tempv;
-			char *s;
-			s = a;
 			cmd = strtok(NULL, " ");
 			sscanf(cmd, "%d", &tempk);
 			cmd = strtok(NULL, " ");
@@ -330,8 +325,6 @@ int main( int argc, char *argv[] )
 
 		else if((a[0] == 'a')){
 			int tempk, tempv;
-			char *s;
-			s = a;
 			cmd = strtok(NULL, " ");
 			sscanf(cmd, "%d", &tempk);
 			cmd = strtok(NULL, " ");
@@ -341,7 +334,6 @@ int main( int argc, char *argv[] )
 		}
 
 		else if(strcmp(a, "size")==0){
-			int sz = size(list_detail);
 			printf("size:       List size = %d\n", list_detail->size);
 		}
 
