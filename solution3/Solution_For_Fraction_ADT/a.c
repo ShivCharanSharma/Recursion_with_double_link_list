@@ -14,27 +14,26 @@
 //}Fraction;
 //
 long gcd(long a, long b){ 
-        long n1, n2;
-        if(b <= 0)
-        {return a;}
+        if(b <= 0) 		
+        {return a;}		// return a if b <= 0
 	else
-	{return gcd(b, a%b);}
+	{return gcd(b, a%b);}   // else calculate the value according to euclid's algorithm
 }
 
 int set_fraction(Fraction * fract, int num, int denom){
 	if(denom == 0){
-		return FALSE;
+		return FALSE;	// returns false if denominator = 0 as this is not possible in fractions
 	}
 	else{
 		if(denom < 0){
-			num = -num;
+			num = -num;		// if denomenator is negative, negative sign shifts from denomenator to numerator
 			denom = -denom;
 		}
 
 		fract->num = num;
-		fract->denom = denom;
+		fract->denom = denom;		// stores numerator and denomenator in fraction
 
-		return TRUE;
+		return TRUE;			// and returns true
 	}
 }
 
@@ -47,8 +46,11 @@ void print_fract(Fraction * fract, int mode){
 
 	// mixed mode
 	if(mode == 0){	
+		//checkes various conditions to find that whether the fraction is proper or improper
+		// if improper, then converts it to mixed fraction
+		
 		if(n < 0 && (((-1)*(n)%d) == 0)){
-			printf("-%ld\n", ((-1)*(fract->num))/fract->denom);
+			printf("-%ld\n", ((-1)*(fract->num))/fract->denom);  
 		}
 		
 		else if(n%d == 0){
@@ -84,9 +86,9 @@ void print_fract(Fraction * fract, int mode){
 
 void simplify(Fraction * fract){
 	int g;
-	g = gcd(fract->num, fract->denom);
-	fract->num /= g;
-	fract->denom /= g;
+	g = gcd(fract->num, fract->denom);	// finds the gcd of numerator and denomenator
+	fract->num /= g;			// divides numerator by gcd
+	fract->denom /= g;			// divides denomenator by gcd
 }
 
 int add_fract(Fraction * result, Fraction * x, Fraction * y){
@@ -101,8 +103,8 @@ int add_fract(Fraction * result, Fraction * x, Fraction * y){
                           }
 
 
-	result->num = (x->num)*(y->denom) + (y->num)*(x->denom);
-	result->denom = (x->denom)*(y->denom);
+	result->num = (x->num)*(y->denom) + (y->num)*(x->denom);  // finds the equivalent numerator after adding fractions x and y
+	result->denom = (x->denom)*(y->denom); // finds the equivalent denomenatorr after adding fractions x and y
 	return TRUE;
 }
 

@@ -1,16 +1,11 @@
 #include<stdio.h>
 
 long gcd(long a, long b){
-	long n1, n2;
-
-	n1 = (a>b)?a:b;
-	n2 = (n1 == a)?b:a;
-
 	if(b <= 0){
-		return a;
+		return a;    // return a if b <= 0
 	}
 	else{
-		return gcd(b, a%b);
+		return gcd(b, a%b);  // else calculate the value according to euclid's algorithm
 	}
 }
 
