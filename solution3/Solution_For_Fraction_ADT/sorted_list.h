@@ -33,17 +33,15 @@ typedef struct {
 //size function to calculate the size of linked list
 int size(Sorted_list * list_detail);
  
-void printList(Sorted_list * list_detail);
-
 /*push function to add the node to the head of the list*/
 int push(Sorted_list * list_detail, value_t  value, key_lt  key)  ;
 
 int append(Sorted_list * list_detail, value_t  value, key_lt  key);
 
 //Function to print the list according to insertion order as well as key sort order
-void printList(Sorted_list * list_detail)  ;
+void printList(Sorted_list * list_detail, int mode)  ;
 
-void printList_sort(Sorted_list * list_detail);
+void printList_sort(Sorted_list * list_detail, int mode);
 
 
 
