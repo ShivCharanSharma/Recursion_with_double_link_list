@@ -86,10 +86,10 @@ value_t reduce( Sorted_list * list_detail, int (*f)(value_t *,value_t *,value_t 
         	node = list_detail->head;
         	while (node != NULL) {
     
-                	if(!(*f)(value,value,node->value))
+                	if(!(*f)(&value,&value,&node->value))
 			{
-				value->num=0;
-				value->denom=0;
+				value.num=0;
+				value.denom=0;
 				return value;//it will be used to print overflow/underflow condition
 			}
                 	node = node->next;
@@ -100,10 +100,10 @@ value_t reduce( Sorted_list * list_detail, int (*f)(value_t *,value_t *,value_t 
 	{      node = list_detail->head_sort;
                 while (node != NULL) {
 
-                       if(!(*f)(value,value,node->value))
+                       if(!(*f)(&value,&value,&node->value))
                         {
-                                value->num=0;
-                                value->denom=0;
+                                value.num=0;
+                                value.denom=0;
                                 return value;//it will be used to print overflow/underflow condition
                         }
 

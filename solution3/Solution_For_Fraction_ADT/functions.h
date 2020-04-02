@@ -36,7 +36,7 @@ Sorted_list * map( Sorted_list * old_list_detail, value_t (*f)(value_t));
  * @return value_t single value after reduce
  */
 
-value_t reduce( Sorted_list * list_detail, value_t (*f)(value_t,value_t),value_t init,int order);
+value_t reduce( Sorted_list * list_detail, int (*f)(value_t*, value_t*, value_t*),value_t init,int order);
 
 /* function description
  * first applying map, and then reduce using function pointers for both
