@@ -242,7 +242,7 @@ int remove_first(Sorted_list * list_detail,value_t * value, key_t * key)
 		list_detail->head->prev=NULL;
 		free(ptr);
 	}
-	list->size=list->size-1;
+	list_detail->size=list_detail->size-1;
 	*value=deleted_Node_Value;
 	*key=deleted_Node_Key;
 	return 1;
@@ -300,7 +300,7 @@ int remove_last(Sorted_list * list_detail,value_t * value, key_t * key)
                 list_detail->tails->next=NULL;
                 free(ptr);
         }
-	list->size=list->size-1;
+	list_detail->size=list_detail->size-1;
         *value=deleted_Node_Value;
         *key=deleted_Node_Key;
         return 1;
@@ -363,7 +363,7 @@ int remove_smallest_key(Sorted_list * list_detail,value_t * value, key_t * key)
 		list_detail->head_sort->prev_sorted=NULL;
 		free(ptr);
 	}
-	list->size=list->size-1;
+	list_detail->size=list_detail->size-1;
 	*value=deleted_Node_Value;
 	*key=deleted_Node_Key;
 	return 1;
@@ -422,7 +422,7 @@ int remove_largest_key(Sorted_list * list_detail,value_t * value, key_t * key)
                 list_detail->tails_sort->sort=NULL;
                 free(ptr);
         }
-	list->size=list->size-1;
+	list_detail->size=list_detail->size-1;
         *value=deleted_Node_Value;
         *key=deleted_Node_Key;
         return 1;

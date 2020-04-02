@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<limits.h>
 
 #define SIMPLE 1
 #define MIXED 0
@@ -75,8 +76,28 @@ void simplify(Fraction * fract){
 }
 
 int add_fract(Fraction * result, Fraction * x, Fraction * y){
+	//check overflow and underflow for multiplication
+	if((x->num == -1)&&(y->denom ==LONG_MIN) || (y->denom == -1)&&(x->num == LONG_MIN)|| (x->num > LONG_MAX/y->denom) ||(x->num < LONG_MIN/y->denom))
+	{
+		return FALSE;
+	}
+	  if((y->num == -1)&&(x->denom ==LONG_MIN) || (x->denom == -1)&&(y->num == LONG_MIN)|| (y->num > LONG_MAX/x->denom) ||(y->num < LONG_MIN/x->denom))
+        {
+                return FALSE;
+        }
+        //check overflow and underflow for addition
+       
+	  if(((x->num)*(y->denom) >0) && ((y->num)*(x->denom) > LONG_MAX - (x->num)*(y->denom))){
+		  return FALSE;
+			  }
+	 if(((x->num)*(y->denom) <0) && ((y->num)*(x->denom) < LONG_MIN- (x->num)*(y->denom))){
+                  return FALSE;
+                          }
+
+
 	result->num = (x->num)*(y->denom) + (y->num)*(x->denom);
 	result->denom = (x->denom)*(y->denom);
+	result TRUE;
 }
 
 int main(){
