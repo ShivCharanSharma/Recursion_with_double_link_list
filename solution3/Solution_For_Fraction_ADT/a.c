@@ -58,7 +58,7 @@ void print_fract(Fraction * fract, int mode){
 		else if(n > d){
 			w = n/d;
 			n = n%d;
-			printf("%d %ld/%lu\n", w, fract->num, fract->denom);
+			printf("%d %ld/%lu\n", w, n, fract->denom);
 		}
 
 		else if(n<0 && ((-1)*(n))>d){

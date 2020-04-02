@@ -171,7 +171,6 @@ void printList(Sorted_list * list_detail, int mode)
     struct Node* node;
     
     node = list_detail->head;
-    printf("print_all:  Insertion Order \n");
     while (node != NULL) {  
         printf("     %0.2f  ", node->key);  
 	print_fract(&node->value, mode);
@@ -448,6 +447,23 @@ void empty_list(Sorted_list * list_detail){
     list_detail->size = 0;
 }
 */
+void empty_list(Sorted_list * list_detail){
+	struct Node* current = list_detail->head;
+	struct Node* current_sort = list_detail->head_sort;
+	struct Node* nxt = (struct Node *)malloc(sizeof(struct Node *));
+	struct Node* nxt_sort = (struct Node *)malloc(sizeof(struct Node *));
+
+	while(current!= NULL){
+		nxt = current->next;
+		free(current);
+		current = nxt;
+	}
+
+	list_detail->head = NULL;
+	list_detail->head_sort = NULL;
+	list_detail->size = 0;
+}
+ 
 void destroy_list(Sorted_list * list_detail){
 	struct Node* current = list_detail->head;
 	struct Node* current_sort = list_detail->head_sort;
@@ -462,5 +478,6 @@ void destroy_list(Sorted_list * list_detail){
 
 	list_detail->head = NULL;
 	list_detail->head_sort = NULL;
-}
-  
+
+	free(list_detail);
+} 
