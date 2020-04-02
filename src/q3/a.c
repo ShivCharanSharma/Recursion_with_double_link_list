@@ -1,22 +1,24 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<limits.h>
-
+#include "a.h"
 #define SIMPLE 1
 #define MIXED 0
 
 #define FALSE 0
 #define TRUE 1
-
-typedef struct{
-	long num;
-	unsigned long denom;
-}Fraction;
-
+//
+//typedef struct{
+//	long num;
+//	unsigned long denom;
+//}Fraction;
+//
 long gcd(long a, long b){ 
         long n1, n2;
-        if(b > 0){return gcd(b, a%b);}
-        else{return a;}
+        if(b <= 0)
+        {return a;}
+	else
+	{return gcd(b, a%b);}
 }
 
 int set_fraction(Fraction * fract, int num, int denom){
@@ -76,16 +78,8 @@ void simplify(Fraction * fract){
 }
 
 int add_fract(Fraction * result, Fraction * x, Fraction * y){
-	//check overflow and underflow for multiplication
-	if((x->num == -1)&&(y->denom ==LONG_MIN) || (y->denom == -1)&&(x->num == LONG_MIN)|| (x->num > LONG_MAX/y->denom) ||(x->num < LONG_MIN/y->denom))
-	{
-		return FALSE;
-	}
-	  if((y->num == -1)&&(x->denom ==LONG_MIN) || (x->denom == -1)&&(y->num == LONG_MIN)|| (y->num > LONG_MAX/x->denom) ||(y->num < LONG_MIN/x->denom))
-        {
-                return FALSE;
-        }
-        //check overflow and underflow for addition
+
+ 	//check overflow and underflow 
        
 	  if(((x->num)*(y->denom) >0) && ((y->num)*(x->denom) > LONG_MAX - (x->num)*(y->denom))){
 		  return FALSE;
@@ -97,21 +91,29 @@ int add_fract(Fraction * result, Fraction * x, Fraction * y){
 
 	result->num = (x->num)*(y->denom) + (y->num)*(x->denom);
 	result->denom = (x->denom)*(y->denom);
-	result TRUE;
+	return TRUE;
 }
 
-int main(){
-	Fraction *f1 = (Fraction *)malloc(sizeof(Fraction));
-	Fraction *f2 = (Fraction *)malloc(sizeof(Fraction));
-	Fraction *f3 = (Fraction *)malloc(sizeof(Fraction));
-
-	int ans1, ans2;
-	ans1 = set_fraction(f1,8,18);
-	ans2 = set_fraction(f2,9,18); 
-
-	add_fract(f3, f1, f2);
-	simplify(f3);
-	print_fract(f3, 0);
-
-	return 0;
-}
+//gint main(){
+//g	Fraction *f1 = (Fraction *)malloc(sizeof(Fraction));
+//g	Fraction *f2 = (Fraction *)malloc(sizeof(Fraction));
+//g	Fraction *f3 = (Fraction *)malloc(sizeof(Fraction));
+//g
+//g	int ans1, ans2;
+//g	ans1 = set_fraction(f1,922337245,18);
+//g	ans2 = set_fraction(f2,9,922337234); 
+//g
+//g	if(!(add_fract(f3, f1, f2)))
+//g	{
+//g		printf("not");
+//g	}else{
+//g		
+//g	print_fract(f3, 0);
+//g	}
+//gprintf("%ld",LONG_MAX);	
+//g	print_fract(f2, 0);
+//g//	simplify(f3);
+//g	print_fract(f2, 0);
+//g
+//g	return 0;
+//g}
