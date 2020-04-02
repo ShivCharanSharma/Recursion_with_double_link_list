@@ -1,0 +1,12 @@
+p -8/5
+p 5/8
+a 15/-5
+a 25/5
+p -8/5
+a -8/4
+whole_num MIXED
+fract SIMPLE
+rem_mixed MIXED
+print_all SIMPLE
+rem_first
+sum SIMPLE
