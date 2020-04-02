@@ -39,7 +39,7 @@ int set_fraction(Fraction * fract, int num, int denom){
 }
 
 void print_fract(Fraction * fract, int mode){
-	int n;
+	long int n;
 	int d;
 	int w; //whole number for mixed fraction
 	n = fract->num;
@@ -47,20 +47,32 @@ void print_fract(Fraction * fract, int mode){
 
 	// mixed mode
 	if(mode == 0){	
-		if(n%d == 0){
+		if(n < 0 && (((-1)*(n)%d) == 0)){
+			printf("-%ld\n", ((-1)*(fract->num))/fract->denom);
+		}
+		
+		else if(n%d == 0){
 			printf("%ld\n", fract->num/fract->denom);
 		}
-
-		else if(n < d){
-			printf("%ld/%lu\n",  fract->num, fract->denom );
-		}
-
+		
 		else if(n > d){
 			w = n/d;
 			n = n%d;
-			printf("2\n");
 			printf("%d %ld/%lu\n", w, fract->num, fract->denom);
 		}
+
+		else if(n<0 && ((-1)*(n))>d){
+			w = n/d;
+			n = (-1)*(n)%d;
+			printf("%d %ld/%lu\n", w, n, fract->denom);
+
+		}
+		else if(n < d){
+
+			printf("%ld/%lu\n",  fract->num, fract->denom );
+		}
+
+		
 	}
 
 	// simple mode

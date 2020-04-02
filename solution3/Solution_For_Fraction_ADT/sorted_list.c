@@ -13,7 +13,6 @@ int size(Sorted_list * list_detail) {
 	
    return length;
 }
-void printList(Sorted_list * list_detail);
 
 /*push function to add the node to the head of the list*/
 int push(Sorted_list * list_detail, value_t  value, key_lt  key)  
@@ -167,26 +166,28 @@ int append(Sorted_list * list_detail, value_t  value, key_lt  key){
 
 
 //Function to print the list according to insertion order as well as key sort order
-void printList(Sorted_list * list_detail)  
+void printList(Sorted_list * list_detail, int mode)  
 {  
     struct Node* node;
     
     node = list_detail->head;
     printf("print_all:  Insertion Order \n");
     while (node != NULL) {  
-        printf("     %d  %d\n", node->key, node->value);  
+        printf("     %0.2f  ", node->key);  
+	print_fract(&node->value, mode);
         node = node->next; 
     }
 
 }
 
-void printList_sort(Sorted_list * list_detail){
+void printList_sort(Sorted_list * list_detail, int mode){
     struct Node* n2 = (struct Node*)malloc(sizeof(struct Node));
 	
     printf("print_all:  Key Sort Order  \n");
     n2 = list_detail->head_sort;
     while (n2 != NULL) {  
-        printf("     %d  %d\n", n2->key, n2->value);  
+        printf("     %0.2f  ", n2->key);
+	print_fract(&n2->value, mode);
         n2 = n2->sort; 
     }
 
@@ -427,7 +428,7 @@ int remove_largest_key(Sorted_list * list_detail,value_t * value, key_lt * key)
         *key=deleted_Node_Key;
         return 1;
 }
-
+/*
 void empty_list(Sorted_list * list_detail){
     struct Node* node;
     struct Node* node_sort;
@@ -446,7 +447,7 @@ void empty_list(Sorted_list * list_detail){
     }
     list_detail->size = 0;
 }
-
+*/
 void destroy_list(Sorted_list * list_detail){
 	struct Node* current = list_detail->head;
 	struct Node* current_sort = list_detail->head_sort;
