@@ -1,0 +1,16 @@
+p|1 25 36
+p|1 18 18
+p|1 18 18
+p|1 36 25
+a|2 23 1
+a|2 21 13
+a|2 13 12
+a|2 43 11
+sum|1 INSERTED_ORDER
+sum|2 SORTED_ORDER
+size|1
+size|2
+square|1
+square|2
+diff|1:2 INSERTED_ORDER
+sum_sq_d|1:2 INSERTED_ORDER

@@ -3,7 +3,7 @@
 #include<string.h>
 
 typedef int value_t;
-//typedef double key_t;
+typedef double key_lt;
 #include "sorted_list.h"
 #define INSERTED_ORDER 1
 #define SORTED_ORDER 2
@@ -11,8 +11,8 @@ typedef int value_t;
 /* function description
  * filter the values using function pointer.
  * @param Sorted_list * Sorted_list pointer
- * @param value_t (*f)(value_t) function pointer
- * @return Sorted_list pointer of new link list.
+ * @param value_t (*f)(value_t) test function pointer
+ * @return Sorted_list pointer of new link list with filtered values.
  */
 Sorted_list * filter( Sorted_list * old_list_detail, int  (*f)(value_t)){
 	Sorted_list * temp= (Sorted_list *)malloc(sizeof(Sorted_list));
@@ -101,7 +101,7 @@ value_t reduce( Sorted_list * list_detail, value_t (*f)(value_t,value_t),value_t
                 }
                 return value;
 	}   
-
+	return 1; //to avoid warning NOTE: function execution will not reach here.
 }
 
 /* function description
@@ -137,7 +137,7 @@ value_t map_reduce( Sorted_list * list_detail, value_t (*map_fn)(value_t), value
                 }
                 return value;
         }
-
+	return 1; //to avoid warning NOTE: function execution will not reach here.
 }
 /* function description
  * first applying map, and then reduce using function pointers for both
@@ -155,7 +155,6 @@ value_t * map_2_array( Sorted_list * list1,Sorted_list * list2, value_t (*map_fn
 	struct Node* node1,*node2;
 	value_t value ;
  value_t * array=(value_t*)malloc(sizeof(value_t)*list1->size);
-	int counter=0;
 	if(order == INSERTED_ORDER){
         	node1 = list1->head;
 		node2= list2->head;
@@ -190,7 +189,7 @@ value_t * map_2_array( Sorted_list * list1,Sorted_list * list2, value_t (*map_fn
                 }
                 return --array;
 	}   
-
+	return NULL; //to avoid warning NOTE: function execution will not reach here.
 }
 
 /* function description
@@ -209,7 +208,6 @@ value_t  map_2_reduce( Sorted_list * list1,Sorted_list * list2, value_t (*map_fn
 
        	struct Node* node1,*node2;
         value_t value = init;
-        int counter=0;
         if(order == INSERTED_ORDER){
                 node1 = list1->head;
 		node2= list2->head;
@@ -239,7 +237,7 @@ value_t  map_2_reduce( Sorted_list * list1,Sorted_list * list2, value_t (*map_fn
                 }
 		return value; 
         }
-
+	return 1; //to avoid warning NOTE: function execution will not reach here.
 }
 //need to remove add2 fn after all completion
 value_t add2(value_t x)
@@ -363,12 +361,13 @@ Sorted_list * square(Sorted_list *list)
  * @param int order
  * @return void * because we need to return NULL if size of link lists is different .
  */
-void *sum_of_sq_diff(Sorted_list *list1,Sorted_list* list2,int order)
+void * sum_of_sq_diff(Sorted_list *list1,Sorted_list* list2,int order)
 {
 	  if(list1->size != list2->size)
 	        { return NULL;}
 	  printf("%d",map_2_reduce(list1,list2,subtract_2_number,square_and_add_number,0,order));
 
+	return NULL; //to avoid warning NOTE: function execution will not reach here.
 }
 
 void printList_square(Sorted_list * list_detail)  
@@ -408,13 +407,10 @@ int main( int argc, char *argv[] )
 	i++;
     }
 
-    char chunk[50];
     char commands[50][50];
-    size_t malloc_size = 100;
     value_t value;
-    key_t key;
+    key_lt key;
     int j = 0;
-    int k = 0;
     char *a;
     i = 0;
     if(argc == 1){
@@ -452,25 +448,25 @@ int main( int argc, char *argv[] )
 			cmd = strtok(NULL, "\0");
 			sscanf(cmd, "%d", &n);
 			remove_first(list[n], &value, &key);
-			printf("rem_first|%d:  %d %d \n",n, key, value);
+			printf("rem_first|%d:  %0.2f %d \n",n, key, value);
 		}
 		else if(strcmp(cmd,"rem_last")==0){
 			cmd = strtok(NULL, "\0");
 			sscanf(cmd, "%d", &n);
 			remove_first(list[n], &value, &key);
-			printf("rem_last|%d:  %d %d \n",n, key, value);
+			printf("rem_last|%d:  %0.2f %d \n",n, key, value);
 		}
 		else if(strcmp(cmd,"rem_small")==0){
 			cmd = strtok(NULL, "\0");
 			sscanf(cmd, "%d", &n);
 			remove_smallest_key(list[n], &value, &key);
-			printf("rem_small|%d:  %d %d \n",n, key, value);
+			printf("rem_small|%d:  %0.2f %d \n",n, key, value);
 		}
 		else if(strcmp(cmd,"rem_large")==0){
 			cmd = strtok(NULL, "\0");
 			sscanf(cmd, "%d", &n);	
 			remove_largest_key(list[n],&value,&key);
-			printf("rem_large|%d:  %d %d\n",n, key, value);
+			printf("rem_large|%d:  %0.2f %d\n",n, key, value);
 		}
 		else if(strcmp(cmd,"print_all")==0){
 			cmd = strtok(NULL, "\0");
@@ -484,34 +480,34 @@ int main( int argc, char *argv[] )
 		}
 	
 		else if((cmd[0] == 'p')){
-			int tempk, tempv;
-			char *s;
+			key_lt tempk;
+		        value_t	tempv;
 			cmd = strtok(NULL, " ");
 			sscanf(cmd, "%d", &n);	
 			
 			cmd = strtok(NULL, " ");
-			sscanf(cmd, "%d", &tempk);
+			sscanf(cmd, "%lf", &tempk);
 
 			cmd = strtok(NULL, " ");
 			sscanf(cmd, "%d", &tempv);
 			
-			printf("p|%d:          %d  %d\n",n, tempk, tempv);
+			printf("p|%d:          %0.2f  %d\n",n, tempk, tempv);
 			push(list[n], tempv, tempk);
 		}
 
 		else if((cmd[0] == 'a')){
-			int tempk, tempv;
-			char *s;
+			value_t  tempv;
+			key_lt tempk;
 			cmd = strtok(NULL, " ");
 			sscanf(cmd, "%d", &n);	
 			
 			cmd = strtok(NULL, " ");
-			sscanf(cmd, "%d", &tempk);
+			sscanf(cmd, "%lf", &tempk);
 
 			cmd = strtok(NULL, " ");
 			sscanf(cmd, "%d", &tempv);
 			
-			printf("a|%d:          %d  %d\n",n, tempk, tempv);
+			printf("a|%d:          %0.2f  %d\n",n, tempk, tempv);
 			append(list[n], tempv, tempk);
 		}
 
@@ -519,7 +515,6 @@ int main( int argc, char *argv[] )
 			cmd = strtok(NULL, "\0");
 			sscanf(cmd, "%d", &n);	
 
-			int sz = size(list[n]);
 			printf("size|%d:       List size = %d\n",n, list[n]->size);
 		}
 
@@ -596,8 +591,6 @@ int main( int argc, char *argv[] )
 
 	j++;
     }
-printList(filter(list[1],testfunction));		
-    printList(list[1]);
-    getchar();  
+    //getchar();  
     return 0;  
 }  

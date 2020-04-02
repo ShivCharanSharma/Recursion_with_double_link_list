@@ -53,7 +53,6 @@ int push(Sorted_list * list_detail, value_t  value, key_t  key)
 
 	    else {
 	        current = list_detail->head_sort;
-		int i=0;
 		struct Node* previous=(struct Node*)malloc(sizeof(struct Node));
 	        // locate the node after which the new node is to be inserted
 	        while (current != NULL && current->key <= new_node->key){
@@ -127,7 +126,6 @@ int append(Sorted_list * list_detail, value_t  value, key_t  key){
 
 	    else {
 	        current = list_detail->head_sort;
-		int i=0;
 		struct Node* previous=(struct Node*)malloc(sizeof(struct Node));
 	        // locate the node after which the new node is to be inserted
 	        while (current != NULL && current->key <= new_node->key){
@@ -449,9 +447,7 @@ void empty_list(Sorted_list * list_detail){
 
 void destroy_list(Sorted_list * list_detail){
 	struct Node* current = list_detail->head;
-	struct Node* current_sort = list_detail->head_sort;
 	struct Node* nxt = (struct Node *)malloc(sizeof(struct Node *));
-	struct Node* nxt_sort = (struct Node *)malloc(sizeof(struct Node *));
 
 	while(current!= NULL){
 		nxt = current->next;
